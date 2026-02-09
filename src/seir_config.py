@@ -18,9 +18,11 @@ class SEIRConfig:
             config = yaml.safe_load(f)
 
         self.config = config
+
+        self.set_seed = config.get('set_seed', False)
         
         self.seed = config.get('seed')
-        if self.seed is None:
+        if self.set_seed and self.seed is None:
             self.seed = random.randint(0, 1000000)
         self.exp_name = config.get('exp_name')
         self.num_agents = config['simulation']['num_agents']
@@ -30,10 +32,6 @@ class SEIRConfig:
         self.susceptible_percent = config['initial_population']['susceptible']
         self.exposed_percent = config['initial_population']['exposed']
         self.infectious_percent = config['initial_population']['infectious']
-
-        self.out_dir = "out/" + self.exp_name + "/"
-        os.makedirs(self.out_dir, exist_ok=True)
-        os.makedirs(self.out_dir + "graph_state/", exist_ok=True)
 
     def _extract_graph_config(self, graph_type):
         if graph_type == GraphType.CIRCULANT:
@@ -61,4 +59,3 @@ if __name__ == "__main__":
     print(config.susceptible_percent)
     print(config.exposed_percent)
     print(config.infectious_percent)
-    print(config.recovered_percent)

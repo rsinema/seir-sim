@@ -1,22 +1,20 @@
 import random
 
 import networkx as nx
-import matplotlib.pyplot as plt
 
 from seir_config import GraphType
 from seir_agent import SEIRState, SEIRAgent
-from seir_agent import color_map
 from seir_config import SEIRConfig
-
+from seir_population_state import SEIRPopulationState
 
 class SEIRGraph:
     def __init__(self, config: SEIRConfig):
         self.config = config
         self.seed = config.seed
-        random.seed(self.seed)
+        if self.seed is not None and self.config.set_seed:
+            random.seed(self.seed)
         self.agents = [SEIRAgent(i) for i in range(config.num_agents)]
         self.graph = self._build_graph()
-        print(self.graph.nodes)
 
         # set the initial population based on the config
         
@@ -44,7 +42,7 @@ class SEIRGraph:
         self.recovered_counts = []
 
         self.step_count = 0
-        self._count_population()
+        self.save_graph_state()
 
     def _build_graph(self):
         if self.config.graph_type == GraphType.CIRCULANT:
@@ -95,33 +93,28 @@ class SEIRGraph:
             agent.step()
             if agent_state != agent.state:
                 changed_nodes.append(i)
-        self._count_population()
+        self.save_graph_state()
 
-    def run(self, num_steps):
+    def run(self, num_steps: int = None):
+        if num_steps is None:
+            num_steps = self.config.num_steps
         for _ in range(num_steps):
             self.step()
 
-    def _count_population(self):
-        susceptible_count = 0
-        exposed_count = 0
-        infectious_count = 0
-        recovered_count = 0
-        for agent in self.agents:
-            if agent.state == SEIRState.SUSCEPTIBLE:
-                susceptible_count += 1
-            elif agent.state == SEIRState.EXPOSED:
-                exposed_count += 1
-            elif agent.state == SEIRState.INFECTIOUS:
-                infectious_count += 1
-            elif agent.state == SEIRState.RECOVERED:
-                recovered_count += 1
-        self.susceptible_counts.append(susceptible_count)
-        self.exposed_counts.append(exposed_count)
-        self.infectious_counts.append(infectious_count)
-        self.recovered_counts.append(recovered_count)
-
     # save the population state at each step and then plot/animate it after simulation ends
+    def save_graph_state(self):
+        population_state = SEIRPopulationState()
+        for i, agent in enumerate(self.agents):
+            if agent.state == SEIRState.SUSCEPTIBLE:
+                population_state.susceptible_nodes.append(i)
+            elif agent.state == SEIRState.EXPOSED:
+                population_state.exposed_nodes.append(i)
+            elif agent.state == SEIRState.INFECTIOUS:
+                population_state.infectious_nodes.append(i)
+            elif agent.state == SEIRState.RECOVERED:
+                population_state.recovered_nodes.append(i)
+        population_state.save(self.config.out_dir + "graph_state/" + str(self.step_count) + ".json")
 
 if __name__ == "__main__":
     graph = SEIRGraph(SEIRConfig("config/example.yaml"))
-    graph.step()
+    graph.run()

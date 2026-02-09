@@ -1,0 +1,29 @@
+{
+    "susceptible_nodes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18
+    ],
+    "exposed_nodes": [
+        5,
+        9,
+        19
+    ],
+    "infectious_nodes": [
+        6,
+        7,
+        8,
+        10,
+        17
+    ],
+    "recovered_nodes": []
+}

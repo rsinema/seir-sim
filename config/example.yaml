@@ -1,8 +1,8 @@
-seed: 42
 exp_name: "example"
 
 simulation:
   num_agents: 20
+  num_steps: 10
 
 graph:
   type: "circulant"
