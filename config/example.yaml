@@ -1,0 +1,16 @@
+seed: 42
+exp_name: "example"
+
+simulation:
+  num_agents: 20
+
+graph:
+  type: "circulant"
+  neighbors: 4
+
+initial_population:
+  susceptible: 0.9
+  exposed: 0.05
+  infectious: 0.05
+  recovered: 0.0
+
