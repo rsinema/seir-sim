@@ -19,6 +19,8 @@ class SEIRConfig:
 
         self.config = config
 
+        self.num_runs = config['num_runs']
+
         self.set_seed = config.get('set_seed', False)
         
         self.seed = config.get('seed')

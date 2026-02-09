@@ -1,0 +1,17 @@
+exp_name: "circulant_4n"
+num_runs: 5
+
+simulation:
+  num_agents: 20
+  num_steps: 100
+
+graph:
+  type: "circulant"
+  neighbors: 4
+
+initial_population:
+  susceptible: 0.9
+  exposed: 0.05
+  infectious: 0.05
+  recovered: 0.0
+

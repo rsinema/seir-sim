@@ -20,4 +20,10 @@ class SEIRPopulationState:
     @classmethod
     def load(cls, file_path: str):
         with open(file_path, 'r') as f:
-            return cls(**json.load(f))
+            data = json.load(f)
+            state = SEIRPopulationState()
+            state.susceptible_nodes = data['susceptible_nodes']
+            state.exposed_nodes = data['exposed_nodes']
+            state.infectious_nodes = data['infectious_nodes']
+            state.recovered_nodes = data['recovered_nodes']
+            return state

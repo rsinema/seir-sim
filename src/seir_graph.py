@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+from seir_agent import color_map
 import random
 
 import networkx as nx
@@ -43,6 +45,7 @@ class SEIRGraph:
 
         self.step_count = 0
         self.save_graph_state()
+        self.draw_graph()
 
     def _build_graph(self):
         if self.config.graph_type == GraphType.CIRCULANT:
@@ -94,6 +97,7 @@ class SEIRGraph:
             if agent_state != agent.state:
                 changed_nodes.append(i)
         self.save_graph_state()
+        self.draw_graph()
 
     def run(self, num_steps: int = None):
         if num_steps is None:
@@ -114,6 +118,23 @@ class SEIRGraph:
             elif agent.state == SEIRState.RECOVERED:
                 population_state.recovered_nodes.append(i)
         population_state.save(self.config.out_dir + "graph_state/" + str(self.step_count) + ".json")
+
+    def draw_graph(self):
+        if self.config.graph_type == GraphType.CIRCULANT:
+            pos = nx.circular_layout(self.graph)
+        elif self.config.graph_type == GraphType.COMPLETE:
+            pos = nx.spring_layout(self.graph)
+        elif self.config.graph_type == GraphType.LATTICE:
+            pos = nx.grid_2d_layout(self.graph)
+        elif self.config.graph_type == GraphType.SCALE_FREE:
+            pos = nx.spring_layout(self.graph)
+        elif self.config.graph_type == GraphType.INFECT_DUBLIN:
+            pos = nx.spring_layout(self.graph)
+
+        # save the graph image
+        nx.draw(self.graph, pos, with_labels=True, node_color=[color_map[agent.state] for agent in self.agents])
+        plt.savefig(self.config.out_dir + "graph_images/" + str(self.step_count) + ".png")
+        plt.close()
 
 if __name__ == "__main__":
     graph = SEIRGraph(SEIRConfig("config/example.yaml"))
