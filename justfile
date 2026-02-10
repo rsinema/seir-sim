@@ -23,3 +23,12 @@ plot-all:
     uv run src/plot_simulation.py --config config/scale_free_100.yaml
     uv run src/plot_simulation.py --config config/scale_free_410.yaml
     uv run src/plot_simulation.py --config config/infect_dublin.yaml
+
+animate-all:
+    uv run src/animate_contagion.py -e circulant_4n
+    uv run src/animate_contagion.py -e circulant_8n
+    uv run src/animate_contagion.py -e complete
+    uv run src/animate_contagion.py -e lattice
+    uv run src/animate_contagion.py -e scale_free_100
+    uv run src/animate_contagion.py -e scale_free_410
+    uv run src/animate_contagion.py -e infect_dublin

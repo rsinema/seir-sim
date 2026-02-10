@@ -177,8 +177,7 @@ def main():
     args = parser.parse_args()
 
     out_dir = Path(args.out_dir)
-    output_dir = Path(args.output_dir)
-    output_dir = output_dir / args.experiment
+    output_dir = Path(args.output_dir + "/" + args.experiment)
 
     # Create output directory if it doesn't exist
     output_dir.mkdir(exist_ok=True)

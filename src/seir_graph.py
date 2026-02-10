@@ -141,7 +141,7 @@ class SEIRGraph:
 
     def draw_graph(self):
         # save the graph image
-        nx.draw(self.graph, self.pos, with_labels=True, node_color=[color_map[agent.state] for agent in self.agents])
+        nx.draw(self.graph, self.pos, node_size=50, node_color=[color_map[agent.state] for agent in self.agents])
         plt.savefig(self.config.out_dir + "graph_images/" + str(self.step_count) + ".png")
         plt.close()
 
