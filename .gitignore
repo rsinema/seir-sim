@@ -9,7 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
+```gitignore
 # Output
-!out/*/*.png
 out/*
-out/*/*/graph_images/*
+!out/**/*.png
+out/*/*/graph_images/*.png
