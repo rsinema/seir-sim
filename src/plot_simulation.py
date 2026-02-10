@@ -44,5 +44,7 @@ def plot_simulation(config: SEIRConfig):
     plt.close()
 
 if __name__ == "__main__":
-    config = SEIRConfig("config/circulant_4n.yaml")
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument("config", type=str, help="Path to config file")
+    config = SEIRConfig(argparser.parse_args().config)
     plot_simulation(config)
