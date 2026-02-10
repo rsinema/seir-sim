@@ -36,7 +36,7 @@ animate-all:
     uv run src/animate_contagion.py -e scale_free_100
     uv run src/animate_contagion.py -e scale_free_410
     uv run src/animate_contagion.py -e infect_dublin
-    uv run src/animate_contagion.py -e complete_p1c_0_06_i_4_5
+    uv run src/animate_contagion.py -e complete_p1c_i_4_5
     uv run src/animate_contagion.py -e infect_dublin_p1c_0_06_i_4_5
     uv run src/animate_contagion.py -e lattice_p1c_0_06_i_4_5
     uv run src/animate_contagion.py -e scale_free_100_p1c_0_06_i_4_5

@@ -42,6 +42,8 @@ class SEIRGraph:
         self.recovered_counts = []
 
         self.step_count = 0
+        self.peak_infections = 0
+        self.time_to_peak = 0
         self.save_graph_state()
         if self.config.graph_type == GraphType.CIRCULANT:
             self.pos = nx.circular_layout(self.graph)
@@ -115,6 +117,13 @@ class SEIRGraph:
             agent.step()
             if agent_state != agent.state:
                 changed_nodes.append(i)
+
+        # Track peak infections
+        current_infectious = sum(1 for agent in self.agents if agent.state == SEIRState.INFECTIOUS)
+        if current_infectious > self.peak_infections:
+            self.peak_infections = current_infectious
+            self.time_to_peak = self.step_count
+
         self.save_graph_state()
         self.draw_graph()
 
@@ -197,6 +206,8 @@ class SEIRGraph:
             f.write("Radius: " + str(nx.radius(self.graph)) + "\n")
             f.write("Density: " + str(nx.density(self.graph)) + "\n")
             f.write("Uninfected nodes: " + str(get_uninfected_nodes()) + "\n")
+            f.write("Peak Infections: " + str(self.peak_infections) + "\n")
+            f.write("Time to Peak: " + str(self.time_to_peak) + "\n")
 
 if __name__ == "__main__":
     graph = SEIRGraph(SEIRConfig("config/example.yaml"))
