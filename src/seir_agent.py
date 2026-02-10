@@ -17,8 +17,11 @@ color_map = {
 }
 
 class SEIRAgent:
-    def __init__(self, agent_id):
+    def __init__(self, agent_id, p1_c = 0.12, beta = -0.00504):
         self.agent_id = agent_id
+        self.beta = beta
+        self.p_1c = p1_c
+
         # sample from a lognormal distribution for exposed state duration
         mu_e = 1.0
         sigma_e = 1.0
@@ -37,11 +40,9 @@ class SEIRAgent:
         self.neighbors = neighbors
 
     def get_infectious_prob(self):
-        beta = -0.00504
-        p_1c = 0.12
         d = self.days_spent_infectious
 
-        numerator = (p_1c / (1 - p_1c)) * np.exp(beta * (d**3 - 1))
+        numerator = (self.p_1c / (1 - self.p_1c)) * np.exp(self.beta * (d**3 - 1))
         denominator = 1 + numerator
         prob_infect = numerator / denominator
 

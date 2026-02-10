@@ -27,6 +27,10 @@ class SEIRConfig:
         if self.set_seed and self.seed is None:
             self.seed = random.randint(0, 1000000)
         self.exp_name = config.get('exp_name')
+        self.p1_c = config['simulation'].get('p1_c', 0.12)
+        self.beta = config['simulation'].get('beta', -0.00504)
+
+
         self.num_agents = config['simulation']['num_agents']
         self.num_steps = config['simulation'].get('num_steps', 100)
         self.graph_type = GraphType(config['graph']['type'])

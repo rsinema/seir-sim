@@ -1,12 +1,11 @@
-import matplotlib.pyplot as plt
-from seir_agent import color_map
 import random
 
+import matplotlib.pyplot as plt
 import networkx as nx
+import numpy as np
 
-from seir_config import GraphType
-from seir_agent import SEIRState, SEIRAgent
-from seir_config import SEIRConfig
+from seir_agent import SEIRState, SEIRAgent, color_map
+from seir_config import GraphType, SEIRConfig
 from seir_population_state import SEIRPopulationState
 
 class SEIRGraph:
@@ -16,7 +15,7 @@ class SEIRGraph:
         if self.seed is not None and self.config.set_seed:
             random.seed(self.seed)
         self.graph = self._build_graph()
-        self.agents = [SEIRAgent(i) for i in range(self.graph.number_of_nodes())]
+        self.agents = [SEIRAgent(i, self.config.p1_c, self.config.beta) for i in range(self.graph.number_of_nodes())]
         # set the initial population based on the config
         
         # sample the initial population
@@ -124,6 +123,7 @@ class SEIRGraph:
             num_steps = self.config.num_steps
         for _ in range(num_steps):
             self.step()
+        self.describe_graph()
 
     # save the population state at each step and then plot/animate it after simulation ends
     def save_graph_state(self):
@@ -144,6 +144,59 @@ class SEIRGraph:
         nx.draw(self.graph, self.pos, node_size=50, node_color=[color_map[agent.state] for agent in self.agents])
         plt.savefig(self.config.out_dir + "graph_images/" + str(self.step_count) + ".png")
         plt.close()
+
+    def describe_graph(self):
+        # Please include the following
+        # information about each network: a figure or a description of the degree distribution, the maximum degree, the average degree, the diameter of the graph, the radius of the graph, and the density (connectance) of the graph
+
+        # plot the degree distribution
+        degrees = [self.graph.degree(node) for node in self.graph.nodes]
+        plt.hist(degrees, bins=range(max(degrees) + 1))
+        plt.xlabel("Degree")
+        plt.ylabel("Frequency")
+        plt.title("Degree Distribution")
+        plt.savefig(self.config.out_dir + "degree_distribution.png")
+        plt.close()
+
+        def get_degree_count_dictionary(G):
+            degree_counts = {}
+            for node in G.nodes():
+                degree = G.degree(node)
+                if degree in degree_counts:
+                    degree_counts[degree] += 1
+                else:
+                    degree_counts[degree] = 1
+            return degree_counts
+
+        degree_pairs: dict[int,int] = sorted(get_degree_count_dictionary(self.graph).items())
+        x = [degree for degree, _ in degree_pairs]
+        y = [count for _, count in degree_pairs]
+        if 0 not in x:
+            x.insert(0,0)
+            y.insert(0,0)
+        y = y / np.sum(y)
+        plt.loglog(x,y,'b-o')
+        plt.xlabel('Node degree')
+        plt.ylabel('Probability')
+        plt.savefig(self.config.out_dir + "degree_distribution_loglog.png")
+        plt.close()
+
+        def get_uninfected_nodes():
+            uninfected_nodes = []
+            for i, agent in enumerate(self.agents):
+                if agent.state == SEIRState.SUSCEPTIBLE:
+                    uninfected_nodes.append(i)
+            return len(uninfected_nodes)
+
+        # save the rest of the information to a file
+        with open(self.config.out_dir + "graph_description.txt", "w") as f:
+            f.write("Degree Distribution: " + str(degrees) + "\n")
+            f.write("Maximum Degree: " + str(max(degrees)) + "\n")
+            f.write("Average Degree: " + str(sum(degrees) / len(degrees)) + "\n")
+            f.write("Diameter: " + str(nx.diameter(self.graph)) + "\n")
+            f.write("Radius: " + str(nx.radius(self.graph)) + "\n")
+            f.write("Density: " + str(nx.density(self.graph)) + "\n")
+            f.write("Uninfected nodes: " + str(get_uninfected_nodes()) + "\n")
 
 if __name__ == "__main__":
     graph = SEIRGraph(SEIRConfig("config/example.yaml"))

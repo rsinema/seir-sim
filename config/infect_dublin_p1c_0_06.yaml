@@ -1,0 +1,17 @@
+exp_name: "infect_dublin_p1c_0_06"
+num_runs: 5
+
+simulation:
+  num_agents: 410
+  num_steps: 100
+  p1_c: 0.06
+
+graph:
+  type: "infect_dublin"
+  dublin_path: "data/ia-infect-dublin.mtx"
+
+initial_population:
+  susceptible: 0.9
+  exposed: 0.05
+  infectious: 0.05
+  recovered: 0.0

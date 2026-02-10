@@ -1,10 +1,10 @@
 # https://just.systems
 
 run:
-    uv run src/run_simulation.py --config config/example.yaml
+    uv run src/run_simulation.py --config config/scale_free_100_p1c_0_06.yaml
 
 plot:
-    uv run src/plot_simulation.py --config config/example.yaml
+    uv run src/plot_simulation.py --config config/scale_free_100_p1c_0_06.yaml
 
 run-all:
     uv run src/run_simulation.py --config config/circulant_4n.yaml

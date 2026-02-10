@@ -1,0 +1,16 @@
+exp_name: "complete_p1c"
+num_runs: 10
+
+simulation:
+  num_agents: 100
+  num_steps: 100
+  p1_c: 0.06
+
+graph:
+  type: "complete"
+
+initial_population:
+  susceptible: 0.9
+  exposed: 0.05
+  infectious: 0.05
+  recovered: 0.0

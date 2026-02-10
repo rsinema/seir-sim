@@ -30,18 +30,45 @@ def plot_simulation(config: SEIRConfig):
     ]
 
     steps = np.arange(config.num_steps)
+
+    # Calculate statistics
+    peak_infections = np.max(i_all, axis=1)  # Peak for each run
+    peak_timesteps = np.argmax(i_all, axis=1)  # Timestep of peak for each run
+    never_infected = s_all[:, -1]  # Susceptible at final timestep for each run
+
+    mean_peak_infections = np.mean(peak_infections)
+    mean_peak_timestep = np.mean(peak_timesteps)
+    mean_never_infected = np.mean(never_infected)
+
+    # Create figure with main plot and space for text box on the right
+    fig, ax = plt.subplots(figsize=(12, 6))
+
     for data, label, color in datasets:
         mean = np.mean(data, axis=0)
-        q05 = np.quantile(data, 0.05, axis=0)
-        q95 = np.quantile(data, 0.95, axis=0)
-        
-        plt.plot(steps, mean, label=label, color=color)
-        plt.fill_between(steps, q05, q95, color=color, alpha=0.2)
+        q25 = np.quantile(data, 0.25, axis=0)
+        q75 = np.quantile(data, 0.75, axis=0)
 
-    plt.title(f"SEIR Model - {config.exp_name}")
-    plt.xlabel("Time Step")
-    plt.ylabel("Count")
-    plt.legend()
+        ax.plot(steps, mean, label=label, color=color)
+        ax.fill_between(steps, q25, q75, color=color, alpha=0.2)
+
+    ax.set_title(f"SEIR Model - {config.exp_name}")
+    ax.set_xlabel("Time Step")
+    ax.set_ylabel("Count")
+    ax.legend()
+
+    # Add statistics text box to the right of the plot
+    stats_text = (
+        f"Peak Infections (mean):\n  {mean_peak_infections:.1f}\n\n"
+        f"Peak Timestep (mean):\n  {mean_peak_timestep:.1f}\n\n"
+        f"Never Infected (mean):\n  {mean_never_infected:.1f}"
+    )
+
+    # Position text box on the right side
+    fig.text(0.78, 0.5, stats_text, ha='left', va='center',
+             bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5),
+             fontsize=9, family='monospace')
+
+    plt.tight_layout(rect=[0, 0, 0.75, 1])
     plt.savefig(f"out/{config.exp_name}/plot.png")
     plt.close()
 
