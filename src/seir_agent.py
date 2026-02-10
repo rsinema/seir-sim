@@ -17,7 +17,7 @@ color_map = {
 }
 
 class SEIRAgent:
-    def __init__(self, agent_id, p1_c = 0.12, beta = -0.00504):
+    def __init__(self, agent_id, p1_c = 0.12, beta = -0.00504, infectious_duration = 2.25):
         self.agent_id = agent_id
         self.beta = beta
         self.p_1c = p1_c
@@ -28,7 +28,7 @@ class SEIRAgent:
         self.countdown_to_infectious = math.ceil(np.random.lognormal(mu_e, sigma_e))
 
         # sample from a lognormal distribution for infectious state duration
-        mu_i = 2.25
+        mu_i = infectious_duration
         sigma_i = 0.105
         self.countdown_to_recovered = math.ceil(np.random.lognormal(mu_i, sigma_i))
 

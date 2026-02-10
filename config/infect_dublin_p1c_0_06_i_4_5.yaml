@@ -1,15 +1,15 @@
-exp_name: "lattice_p1c_0_06"
+exp_name: "infect_dublin_p1c_0_06_i_4_5"
 num_runs: 5
 
 simulation:
-  num_agents: 100
+  num_agents: 410
   num_steps: 100
   p1_c: 0.06
+  infectious_duration: 4.5
 
 graph:
-  type: "lattice"
-  rows: 10
-  cols: 10
+  type: "infect_dublin"
+  dublin_path: "data/ia-infect-dublin.mtx"
 
 initial_population:
   susceptible: 0.9

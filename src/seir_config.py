@@ -29,6 +29,7 @@ class SEIRConfig:
         self.exp_name = config.get('exp_name')
         self.p1_c = config['simulation'].get('p1_c', 0.12)
         self.beta = config['simulation'].get('beta', -0.00504)
+        self.infectious_duration = config['simulation'].get('infectious_duration', 2.25)
 
 
         self.num_agents = config['simulation']['num_agents']

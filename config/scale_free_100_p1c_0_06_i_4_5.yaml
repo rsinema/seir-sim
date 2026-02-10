@@ -1,10 +1,11 @@
-exp_name: "scale_free_100_p1c_0_06"
-num_runs: 5
+exp_name: "scale_free_100_p1c_0_06_i_4_5"
+num_runs: 10
 
 simulation:
   num_agents: 100
   num_steps: 100  
   p1_c: 0.06
+  infectious_duration: 4.5
 
 graph:
   type: "scale_free"

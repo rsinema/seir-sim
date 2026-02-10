@@ -1,13 +1,16 @@
-exp_name: "complete_p1c"
-num_runs: 10
+exp_name: "lattice_p1c_0_06_i_4_5"
+num_runs: 5
 
 simulation:
   num_agents: 100
   num_steps: 100
   p1_c: 0.06
+  infectious_duration: 4.5
 
 graph:
-  type: "complete"
+  type: "lattice"
+  rows: 10
+  cols: 10
 
 initial_population:
   susceptible: 0.9
