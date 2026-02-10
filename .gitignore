@@ -9,8 +9,21 @@ wheels/
 # Virtual environments
 .venv
 
-```gitignore
-# Output
-out/*
-!out/**/*.png
-out/*/*/graph_images/*.png
+# 1. Ignore the entire output directory
+out/
+
+# 2. Allow Git to look into specific subdirectories (don't ignore the folders)
+!out/**/
+
+# 3. Ignore all PNGs by default within the out directory
+out/**/*.png
+
+# 4. Re-include the specific PNGs you want to track
+# This tracks the averages image in the experiment folder
+!out/*/*.png
+
+# This tracks the degree distribution image in each run folder
+!out/*/run_*/*.png
+
+# 5. Specifically ignore the dense image directories
+out/*/run_*/graph_images/
