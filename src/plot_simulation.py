@@ -1,3 +1,4 @@
+import argparse
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -37,6 +38,7 @@ def plot_simulation(config: SEIRConfig):
         plt.plot(steps, mean, label=label, color=color)
         plt.fill_between(steps, q05, q95, color=color, alpha=0.2)
 
+    plt.title(f"SEIR Model - {config.exp_name}")
     plt.xlabel("Time Step")
     plt.ylabel("Count")
     plt.legend()
@@ -45,6 +47,6 @@ def plot_simulation(config: SEIRConfig):
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
-    argparser.add_argument("config", type=str, help="Path to config file")
+    argparser.add_argument("--config", type=str, help="Path to config file")
     config = SEIRConfig(argparser.parse_args().config)
     plot_simulation(config)

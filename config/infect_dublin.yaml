@@ -2,11 +2,12 @@ exp_name: "infect_dublin"
 num_runs: 5
 
 simulation:
-  num_agents: 100
+  num_agents: 410
   num_steps: 100
 
 graph:
   type: "infect_dublin"
+  dublin_path: "data/ia-infect-dublin.mtx"
 
 initial_population:
   susceptible: 0.9

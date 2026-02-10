@@ -15,9 +15,8 @@ class SEIRGraph:
         self.seed = config.seed
         if self.seed is not None and self.config.set_seed:
             random.seed(self.seed)
-        self.agents = [SEIRAgent(i) for i in range(config.num_agents)]
         self.graph = self._build_graph()
-
+        self.agents = [SEIRAgent(i) for i in range(self.graph.number_of_nodes())]
         # set the initial population based on the config
         
         # sample the initial population
@@ -45,6 +44,16 @@ class SEIRGraph:
 
         self.step_count = 0
         self.save_graph_state()
+        if self.config.graph_type == GraphType.CIRCULANT:
+            self.pos = nx.circular_layout(self.graph)
+        elif self.config.graph_type == GraphType.COMPLETE:
+            self.pos = nx.spring_layout(self.graph)
+        elif self.config.graph_type == GraphType.LATTICE:
+            self.pos = nx.spring_layout(self.graph)
+        elif self.config.graph_type == GraphType.SCALE_FREE:
+            self.pos = nx.spring_layout(self.graph)
+        elif self.config.graph_type == GraphType.INFECT_DUBLIN:
+            self.pos = nx.spring_layout(self.graph)
         self.draw_graph()
 
     def _build_graph(self):
@@ -83,10 +92,21 @@ class SEIRGraph:
         return G
 
     def _set_neighbors(self):
-        for node in self.graph.nodes:
-            neighbors_idx = list(self.graph.neighbors(node))
-            neighbors = [self.agents[i] for i in neighbors_idx]
-            self.agents[node].set_neighbors(neighbors)
+        if self.config.graph_type == GraphType.LATTICE:
+            for node in self.graph.nodes:
+                row, col = node
+                neighbors = [self.agents[nr * self.config.lattice_cols + nc] for nr, nc in self.graph.neighbors(node)]
+                self.agents[row * self.config.lattice_cols + col].set_neighbors(neighbors)
+        elif self.config.graph_type == GraphType.INFECT_DUBLIN:
+            for node in self.graph.nodes:
+                neighbors_idx = list(self.graph.neighbors(node))
+                neighbors = [self.agents[i-1] for i in neighbors_idx]
+                self.agents[node-1].set_neighbors(neighbors)
+        else:
+            for node in self.graph.nodes:
+                neighbors_idx = list(self.graph.neighbors(node))
+                neighbors = [self.agents[i] for i in neighbors_idx]
+                self.agents[node].set_neighbors(neighbors)
 
     def step(self):
         self.step_count += 1
@@ -120,19 +140,8 @@ class SEIRGraph:
         population_state.save(self.config.out_dir + "graph_state/" + str(self.step_count) + ".json")
 
     def draw_graph(self):
-        if self.config.graph_type == GraphType.CIRCULANT:
-            pos = nx.circular_layout(self.graph)
-        elif self.config.graph_type == GraphType.COMPLETE:
-            pos = nx.spring_layout(self.graph)
-        elif self.config.graph_type == GraphType.LATTICE:
-            pos = nx.grid_2d_layout(self.graph)
-        elif self.config.graph_type == GraphType.SCALE_FREE:
-            pos = nx.spring_layout(self.graph)
-        elif self.config.graph_type == GraphType.INFECT_DUBLIN:
-            pos = nx.spring_layout(self.graph)
-
         # save the graph image
-        nx.draw(self.graph, pos, with_labels=True, node_color=[color_map[agent.state] for agent in self.agents])
+        nx.draw(self.graph, self.pos, with_labels=True, node_color=[color_map[agent.state] for agent in self.agents])
         plt.savefig(self.config.out_dir + "graph_images/" + str(self.step_count) + ".png")
         plt.close()
 

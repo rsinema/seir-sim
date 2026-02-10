@@ -6,8 +6,7 @@ from seir_config import SEIRConfig
 
 
 def run_simulation(config: SEIRConfig):
-    print("Running simulation for " + config.exp_name)
-    print("Number of runs: " + str(config.num_runs))
+    print("Running simulations for " + config.exp_name)
     for i in range(config.num_runs):
         config.out_dir = "out/" + config.exp_name + "/run_" + str(i) + "/"
         os.makedirs(config.out_dir, exist_ok=True)
