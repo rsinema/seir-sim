@@ -1,5 +1,5 @@
 exp_name: "scale_free_100"
-num_runs: 5
+num_runs: 10
 
 simulation:
   num_agents: 100

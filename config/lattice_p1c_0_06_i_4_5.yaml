@@ -1,5 +1,5 @@
 exp_name: "lattice_p1c_0_06_i_4_5"
-num_runs: 5
+num_runs: 10
 
 simulation:
   num_agents: 100

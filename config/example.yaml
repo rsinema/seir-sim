@@ -1,5 +1,5 @@
 exp_name: "example"
-num_runs: 5
+num_runs: 10
 
 simulation:
   num_agents: 20
