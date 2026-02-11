@@ -1,0 +1,10 @@
+Degree Distribution: [14, 6, 6, 18, 11, 17, 30, 14, 7, 5, 2, 3, 3, 7, 6, 3, 3, 2, 4, 5, 2, 6, 5, 7, 7, 3, 2, 4, 4, 2, 4, 2, 2, 2, 2, 6, 5, 3, 5, 2, 2, 2, 2, 2, 7, 5, 3, 2, 3, 2, 4, 3, 3, 3, 2, 2, 3, 3, 2, 2, 2, 2, 5, 2, 3, 2, 3, 3, 2, 2, 2, 3, 2, 3, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 3, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 3, 2, 2]
+Maximum Degree: 30
+Average Degree: 3.92
+Diameter: 5
+Radius: 3
+Density: 0.039595959595959594
+Uninfected nodes: 30
+Peak Infections: 27
+Time to Peak: 22
+Time to Steady State: 73

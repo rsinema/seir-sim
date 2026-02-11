@@ -1,0 +1,26 @@
+Experiment: lattice
+Number of runs: 10
+
+Average Peak Infections: 33.90
+Average Time to Peak: 21.70
+Average Never Infected: 3.10
+Average Time to Steady State: 70.90 (10/10 runs reached)
+
+Individual Run Statistics:
+----------------------------------------
+Run 0: Peak Infections = 30, Time to Peak = 16, Never Infected = 0, Time to Steady State = 78
+Run 1: Peak Infections = 48, Time to Peak = 18, Never Infected = 2, Time to Steady State = 65
+Run 2: Peak Infections = 39, Time to Peak = 22, Never Infected = 0, Time to Steady State = 55
+Run 3: Peak Infections = 28, Time to Peak = 18, Never Infected = 2, Time to Steady State = 78
+Run 4: Peak Infections = 35, Time to Peak = 28, Never Infected = 3, Time to Steady State = 67
+Run 5: Peak Infections = 31, Time to Peak = 21, Never Infected = 0, Time to Steady State = 82
+Run 6: Peak Infections = 29, Time to Peak = 15, Never Infected = 3, Time to Steady State = 71
+Run 7: Peak Infections = 33, Time to Peak = 32, Never Infected = 2, Time to Steady State = 58
+Run 8: Peak Infections = 32, Time to Peak = 24, Never Infected = 12, Time to Steady State = 77
+Run 9: Peak Infections = 34, Time to Peak = 23, Never Infected = 7, Time to Steady State = 78
+
+Average Maximum Degree: 4.00000
+Average Density: 0.03636
+Average Average Degree: 3.60000
+Average Radius: 10.00000
+Average Diameter: 18.00000

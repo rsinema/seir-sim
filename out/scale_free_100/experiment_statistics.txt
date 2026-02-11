@@ -1,0 +1,26 @@
+Experiment: scale_free_100
+Number of runs: 10
+
+Average Peak Infections: 48.20
+Average Time to Peak: 18.70
+Average Never Infected: 4.00
+Average Time to Steady State: 64.00 (9/10 runs reached)
+
+Individual Run Statistics:
+----------------------------------------
+Run 0: Peak Infections = 47, Time to Peak = 21, Never Infected = 3, Time to Steady State = 74
+Run 1: Peak Infections = 44, Time to Peak = 20, Never Infected = 9, Time to Steady State = 59
+Run 2: Peak Infections = 42, Time to Peak = 20, Never Infected = 8, Time to Steady State = 58
+Run 3: Peak Infections = 50, Time to Peak = 20, Never Infected = 2, Time to Steady State = 65
+Run 4: Peak Infections = 47, Time to Peak = 17, Never Infected = 5, Time to Steady State = Not reached
+Run 5: Peak Infections = 59, Time to Peak = 15, Never Infected = 4, Time to Steady State = 81
+Run 6: Peak Infections = 53, Time to Peak = 15, Never Infected = 1, Time to Steady State = 48
+Run 7: Peak Infections = 40, Time to Peak = 26, Never Infected = 3, Time to Steady State = 68
+Run 8: Peak Infections = 57, Time to Peak = 15, Never Infected = 4, Time to Steady State = 53
+Run 9: Peak Infections = 43, Time to Peak = 18, Never Infected = 1, Time to Steady State = 70
+
+Average Maximum Degree: 27.10000
+Average Density: 0.03960
+Average Average Degree: 3.92000
+Average Radius: 3.20000
+Average Diameter: 5.50000

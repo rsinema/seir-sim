@@ -44,6 +44,7 @@ class SEIRGraph:
         self.step_count = 0
         self.peak_infections = 0
         self.time_to_peak = 0
+        self.time_to_steady_state = None
         self.save_graph_state()
         if self.config.graph_type == GraphType.CIRCULANT:
             self.pos = nx.circular_layout(self.graph)
@@ -123,6 +124,11 @@ class SEIRGraph:
         if current_infectious > self.peak_infections:
             self.peak_infections = current_infectious
             self.time_to_peak = self.step_count
+
+        # Check for steady state: no exposed or infectious agents remain
+        current_exposed = sum(1 for agent in self.agents if agent.state == SEIRState.EXPOSED)
+        if self.time_to_steady_state is None and current_exposed == 0 and current_infectious == 0:
+            self.time_to_steady_state = self.step_count
 
         self.save_graph_state()
         self.draw_graph()
@@ -208,6 +214,11 @@ class SEIRGraph:
             f.write("Uninfected nodes: " + str(get_uninfected_nodes()) + "\n")
             f.write("Peak Infections: " + str(self.peak_infections) + "\n")
             f.write("Time to Peak: " + str(self.time_to_peak) + "\n")
+            # Write time to steady state if it was reached, otherwise write "Not reached"
+            if self.time_to_steady_state is not None:
+                f.write("Time to Steady State: " + str(self.time_to_steady_state) + "\n")
+            else:
+                f.write("Time to Steady State: Not reached\n")
 
 if __name__ == "__main__":
     graph = SEIRGraph(SEIRConfig("config/example.yaml"))

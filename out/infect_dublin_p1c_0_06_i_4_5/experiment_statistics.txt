@@ -1,0 +1,26 @@
+Experiment: infect_dublin_p1c_0_06_i_4_5
+Number of runs: 10
+
+Average Peak Infections: 206.20
+Average Time to Peak: 15.10
+Average Never Infected: 15.80
+Average Time to Steady State: 70.90 (10/10 runs reached)
+
+Individual Run Statistics:
+----------------------------------------
+Run 0: Peak Infections = 205, Time to Peak = 15, Never Infected = 23, Time to Steady State = 59
+Run 1: Peak Infections = 194, Time to Peak = 15, Never Infected = 17, Time to Steady State = 62
+Run 2: Peak Infections = 203, Time to Peak = 16, Never Infected = 15, Time to Steady State = 60
+Run 3: Peak Infections = 219, Time to Peak = 14, Never Infected = 13, Time to Steady State = 76
+Run 4: Peak Infections = 209, Time to Peak = 14, Never Infected = 9, Time to Steady State = 89
+Run 5: Peak Infections = 208, Time to Peak = 16, Never Infected = 19, Time to Steady State = 59
+Run 6: Peak Infections = 198, Time to Peak = 15, Never Infected = 16, Time to Steady State = 81
+Run 7: Peak Infections = 214, Time to Peak = 16, Never Infected = 15, Time to Steady State = 64
+Run 8: Peak Infections = 219, Time to Peak = 16, Never Infected = 15, Time to Steady State = 69
+Run 9: Peak Infections = 193, Time to Peak = 14, Never Infected = 16, Time to Steady State = 90
+
+Average Maximum Degree: 50.00000
+Average Density: 0.03298
+Average Average Degree: 13.48780
+Average Radius: 5.00000
+Average Diameter: 9.00000
