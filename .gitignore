@@ -25,3 +25,4 @@ out/**/*.json
 
 # 5. Specifically ignore the dense image directories
 out/*/run_*/graph_images/
+out/*/run_*/graph_state/
